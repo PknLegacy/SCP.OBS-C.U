@@ -1,5 +1,52 @@
 [
-    {"id": "SCP-001", "name": "The First Containment"},
-    {"id": "SCP-002", "name": "Living Room"},
-    {"id": "SCP-003", "name": "Biological Motherboard"}
+  {
+    "id": "INFO",
+    "name": "What are SCPs?",
+    "description": "SCPs are anomalous objects, entities, or phenomena contained and researched by the SCP Foundation. Their nature often defies scientific explanation, and they are secured to protect both humanity and the stability of normal reality.",
+    "classification": "General Information",
+    "links": [
+      {"text": "Learn more about SCPs", "url": "https://scp-wiki.wikidot.com/about-the-scp-foundation"}
+    ],
+    "color": "#00BFFF"
+  },
+  {
+    "id": "CLASSIFICATIONS",
+    "name": "SCP Object Classes",
+    "description": "The SCP Foundation classifies anomalies into different categories based on containment difficulty and threat level:\n\n- **Safe**: Easily and reliably contained.\n- **Euclid**: Unpredictable, containment requires caution.\n- **Keter**: Extremely difficult to contain, highly dangerous.\n- **Thaumiel**: Used by the Foundation itself to contain or counter other SCPs.\n- **Apollyon**: Unstoppable anomalies leading to world-ending scenarios.\n- **Neutralized**: An anomaly that is no longer anomalous.",
+    "classification": "Containment Categories",
+    "links": [
+      {"text": "Object Class Details", "url": "https://scp-wiki.wikidot.com/object-classes"}
+    ],
+    "color": "#FF4500"
+  },
+  {
+    "id": "SCP-001",
+    "name": "The First Containment",
+    "description": "Often referred to as the 'prototype' anomaly, SCP-001’s true nature varies depending on classified files. Multiple proposals exist, ranging from world-ending entities to divine guardians.",
+    "classification": "Top Secret",
+    "links": [
+      {"text": "SCP-001 Proposals", "url": "https://scp-wiki.wikidot.com/scp-001"}
+    ],
+    "color": "#FFD700"
+  },
+  {
+    "id": "SCP-002",
+    "name": "The Living Room",
+    "description": "SCP-002 is a large, fleshy growth resembling a living organism. Its interior mimics a furnished apartment made from biological tissue. Those who enter are often assimilated.",
+    "classification": "Euclid",
+    "links": [
+      {"text": "Read SCP-002 File", "url": "https://scp-wiki.wikidot.com/scp-002"}
+    ],
+    "color": "#DC143C"
+  },
+  {
+    "id": "SCP-003",
+    "name": "Biological Motherboard",
+    "description": "SCP-003 is a collection of anomalous components that resemble both biological and technological systems. It reacts to external stimuli and shows signs of intelligence.",
+    "classification": "Euclid",
+    "links": [
+      {"text": "Read SCP-003 File", "url": "https://scp-wiki.wikidot.com/scp-003"}
+    ],
+    "color": "#8A2BE2"
+  }
 ]
