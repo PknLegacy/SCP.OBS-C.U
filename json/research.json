@@ -1,6 +1,6 @@
 {
   "title": "Research Hub",
-  "content": "<div style='color:#ddd; font-family:monospace; line-height:1.6;'>\
+  "text": "<div style='color:#ddd; font-family:monospace; line-height:1.6;'>\
 <h1 style='color:#e74c3c; text-transform:uppercase;'>Research Hub</h1>\
 <img src='assets/research-lab.jpg' alt='Research Facility' style='width:100%; border-radius:8px; margin:15px 0;'>\
 <h2 style='color:#3498db;'>Nature of Research</h2>\
@@ -12,3 +12,4 @@
 <img src='assets/research-blueprints.jpg' alt='Blueprints and Notes' style='width:100%; border-radius:8px; margin:15px 0;'>\
 </div>"
 }
+
