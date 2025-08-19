@@ -31,6 +31,117 @@
             <h1>Welcome to Foundation Security Terminal</h1>
             <p>Access classified SCP documentation. Unauthorized access will be logged.</p>
             <img src="assets/home.jpg" alt="SCP Home" class="home-img">
+            <!-- SCP Security Box -->
+<div id="scp-box" style="position:relative; width:200px; height:150px; margin:30px auto; background:#1c1c1c; border:2px solid #3498db; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#3498db; font-family:monospace; transition:0.3s;">
+    Hover me
+</div>
+
+<!-- Overlay Terminal -->
+<div id="scp-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; color:#0f0; font-family:monospace; z-index:9999; overflow:hidden;">
+    <div id="terminal-content" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:80%; text-align:center;">
+        <h2 id="loading-text">Loading SCP Security Update...</h2>
+        <div id="cells" style="margin-top:20px; display:flex; justify-content:center; gap:-60px;"></div>
+    </div>
+    <canvas id="code-bg" style="position:absolute; top:0; left:0; width:100%; height:100%;"></canvas>
+</div>
+
+<style>
+#scp-box:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #3498db;
+}
+
+.cell-img {
+    width:100px;
+    border:2px solid #0f0;
+    border-radius:4px;
+    transform: rotate(-5deg);
+    transition:0.3s;
+}
+
+.cell-img:nth-child(even) {
+    transform: rotate(5deg);
+}
+</style>
+
+<script>
+// Hover box click -> Overlay öffnen
+const scpBox = document.getElementById('scp-box');
+const overlay = document.getElementById('scp-overlay');
+const cellsContainer = document.getElementById('cells');
+const loadingText = document.getElementById('loading-text');
+
+// Beispiel SCP-Zellen Bilder
+const scpImages = [
+    'assets/scp-cell1.jpg',
+    'assets/scp-cell2.jpg',
+    'assets/scp-cell3.jpg'
+];
+
+// Code Rain Background
+const canvas = document.getElementById('code-bg');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const fontSize = 16;
+const columns = canvas.width / fontSize;
+const drops = [];
+for(let x=0; x<columns; x++) drops[x] = 1;
+
+function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "#0f0";
+    ctx.font = fontSize + "px monospace";
+    for(let i=0; i<drops.length; i++){
+        const text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+    }
+}
+
+// Resize canvas
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+let codeInterval;
+
+// Overlay öffnen
+scpBox.addEventListener('click', () => {
+    overlay.style.display = 'block';
+
+    // SCP-Zellen hinzufügen
+    scpImages.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.className = 'cell-img';
+        cellsContainer.appendChild(img);
+    });
+
+    // Code Rain starten
+    codeInterval = setInterval(draw, 50);
+
+    // Nach 15 Sekunden JSON laden
+    setTimeout(() => {
+        fetch('secure.up.json')
+        .then(res => res.json())
+        .then(data => {
+            loadingText.textContent = data.text || "Secure data loaded.";
+        })
+        .catch(err => {
+            loadingText.textContent = "Failed to load secure data.";
+            console.error(err);
+        });
+
+        clearInterval(codeInterval);
+    }, 15000);
+});
+</script>
         </section>
 
         <!-- SCP Files -->
