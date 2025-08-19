@@ -1,16 +1,4 @@
 {
   "title": "Incident Reports",
-  "content": 
-    <div style='color:#ddd; font-family:monospace; line-height:1.6;'>
-      <h1 style='color:#e74c3c; text-transform:uppercase;'>Incident Reports</h1>
-      <img src='assets/incident-breach.jpg' alt='Containment Breach' style='width:100%; border-radius:8px; margin:15px 0;'>
-      <h2 style='color:#3498db;'>Operational Memory</h2>
-      <p>Incident Reports constitute the <strong>operational memory</strong> of Foundation512, chronicling every breach, failure, and catastrophic miscalculation with brutal honesty. These documents are not censored for morale—they are retained as grim evidence of the stakes involved in containment.</p>
-      <h2 style='color:#2ecc71;'>Structure</h2>
-      <p>Each Incident Report follows a rigid structure: <span style='color:#f39c12;'>Pre-Event Conditions</span>, <span style='color:#f39c12;'>Trigger</span>, <span style='color:#f39c12;'>Escalation Sequence</span>, <span style='color:#f39c12;'>Containment Response</span>, and <span style='color:#f39c12;'>Aftermath</span>. This systematic layout ensures future operatives can rapidly assess patterns and apply countermeasures.</p>
-      <h2 style='color:#9b59b6;'>Purpose</h2>
-      <p>The reports, while grim, are essential pedagogical tools. They serve as monuments to the cost of ignorance, complacency, and error. No recruit may advance in clearance without first internalizing the consequences described in these pages.</p>
-      <img src='assets/incident-documents.jpg' alt='Incident Documents' style='width:100%; border-radius:8px; margin:15px 0;'>
-    </div>
+  "content": "<div style=\"color:#ddd; font-family:monospace; line-height:1.6;\"><h1 style=\"color:#e74c3c; text-transform:uppercase;\">Incident Reports</h1><img src=\"assets/incident-breach.jpg\" alt=\"Containment Breach\" style=\"width:100%; border-radius:8px; margin:15px 0;\"><h2 style=\"color:#3498db;\">Operational Memory</h2><p>Incident Reports constitute the <strong>operational memory</strong> of Foundation512, chronicling every breach, failure, and catastrophic miscalculation with brutal honesty. These documents are not censored for morale—they are retained as grim evidence of the stakes involved in containment.</p><h2 style=\"color:#2ecc71;\">Structure</h2><p>Each Incident Report follows a rigid structure: <span style=\"color:#f39c12;\">Pre-Event Conditions</span>, <span style=\"color:#f39c12;\">Trigger</span>, <span style=\"color:#f39c12;\">Escalation Sequence</span>, <span style=\"color:#f39c12;\">Containment Response</span>, and <span style=\"color:#f39c12;\">Aftermath</span>. This systematic layout ensures future operatives can rapidly assess patterns and apply countermeasures.</p><h2 style=\"color:#9b59b6;\">Purpose</h2><p>The reports, while grim, are essential pedagogical tools. They serve as monuments to the cost of ignorance, complacency, and error. No recruit may advance in clearance without first internalizing the consequences described in these pages.</p><img src=\"assets/incident-documents.jpg\" alt=\"Incident Documents\" style=\"width:100%; border-radius:8px; margin:15px 0;\"></div>"
 }
-
