@@ -84,3 +84,62 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fullscreen Example</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    user-select: none; /* Textauswahl verhindern */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  body {
+    -webkit-touch-callout: none; /* iOS: lange Touchs verhindern */
+    -webkit-user-drag: none;     /* Dragging verhindern */
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center; color:white; margin-top: 50px;">Your Content Here</h1>
+
+<script>
+  // Funktion, um Vollbild zu aktivieren
+  function goFullscreen() {
+    let elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  }
+
+  // Nach 3 Sekunden Vollbild
+  setTimeout(goFullscreen, 3000);
+
+  // Bei Klick Vollbild
+  document.addEventListener('click', goFullscreen);
+
+  // Rechtsklick blockieren
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // Textauswahl & Dragging extra blockieren
+  document.addEventListener('selectstart', e => e.preventDefault());
+  document.addEventListener('dragstart', e => e.preventDefault());
+</script>
+
+</body>
+</html>
