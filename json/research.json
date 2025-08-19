@@ -1,15 +1,4 @@
 {
   "title": "Research Hub",
-  "text": "<div style='color:#ddd; font-family:monospace; line-height:1.6;'>\
-<h1 style='color:#e74c3c; text-transform:uppercase;'>Research Hub</h1>\
-<img src='assets/research-lab.jpg' alt='Research Facility' style='width:100%; border-radius:8px; margin:15px 0;'>\
-<h2 style='color:#3498db;'>Nature of Research</h2>\
-<p>The Research Hub of Foundation512 is a distributed network of laboratories, secured archives, and experimental chambers. Its purpose is to dissect, classify, and—if possible—exploit anomalous phenomena. The work is not merely empirical but philosophical, constantly challenging the boundaries of what science considers immutable.</p>\
-<h2 style='color:#2ecc71;'>Ethical Paradox</h2>\
-<p>Researchers are confronted with the dilemma of <span style='color:#c0392b;'>knowledge versus safety</span>. To probe too deeply risks catastrophe; to refrain consigns humanity to ignorance. Experiments often straddle this razor’s edge, driven by curiosity that borders on obsession.</p>\
-<h2 style='color:#9b59b6;'>Failures and Setbacks</h2>\
-<p>Not all projects succeed. Entire laboratories have been quarantined following accidents. In one instance, a research division was permanently sealed in reinforced cryogenic stasis after accidental cross-exposure. Yet each failure, no matter how destructive, is preserved as valuable data, catalogued and referenced for future avoidance.</p>\
-<img src='assets/research-blueprints.jpg' alt='Blueprints and Notes' style='width:100%; border-radius:8px; margin:15px 0;'>\
-</div>"
+  "content": "<div style=\"color:#ddd; font-family:monospace; line-height:1.6;\"><h1 style=\"color:#e74c3c; text-transform:uppercase;\">Research Hub</h1><img src=\"assets/research-lab.jpg\" alt=\"Research Facility\" style=\"width:100%; border-radius:8px; margin:15px 0;\"><h2 style=\"color:#3498db;\">Nature of Research</h2><p>The Research Hub of Foundation512 is a distributed network of laboratories, secured archives, and experimental chambers. Its purpose is to dissect, classify, and—if possible—exploit anomalous phenomena. The work is not merely empirical but philosophical, constantly challenging the boundaries of what science considers immutable.</p><h2 style=\"color:#2ecc71;\">Ethical Paradox</h2><p>Researchers are confronted with the dilemma of <span style=\"color:#c0392b;\">knowledge versus safety</span>. To probe too deeply risks catastrophe; to refrain consigns humanity to ignorance. Experiments often straddle this razor’s edge, driven by curiosity that borders on obsession.</p><h2 style=\"color:#9b59b6;\">Failures and Setbacks</h2><p>Not all projects succeed. Entire laboratories have been quarantined following accidents. In one instance, a research division was permanently sealed in reinforced cryogenic stasis after accidental cross-exposure. Yet each failure, no matter how destructive, is preserved as valuable data, catalogued and referenced for future avoidance.</p><img src=\"assets/research-blueprints.jpg\" alt=\"Blueprints and Notes\" style=\"width:100%; border-radius:8px; margin:15px 0;\"></div>"
 }
-
