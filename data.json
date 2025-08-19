@@ -1,6 +1,6 @@
 [
   {
-    "id": "INFO",
+    "id": "scp-list",
     "name": "What are SCPs?",
     "color": "#00BFFF",
     "tags": ["overview", "foundation", "basics"],
