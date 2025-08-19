@@ -45,37 +45,40 @@
             <p>This system is used for accessing and reviewing SCP Foundation classified documents.</p>
             <p>Made by Caylen Ulver. Use of community content according to CC-BY-SA, unless otherwise noted and Caylen Ulver of the 512 series.</p>
 
-            <h1>What is the 512 Project by C.U?</h1>
-            <p>Project 512 is a specific Foundation branch located in Germany. The Administrator is Caylen Ulver, known by many through the TikTok account SCP-Foundation512.</p>
-            <p>This Terminal provides {2025} information and is updated monthly [beta].</p>
-
-            <!-- Access Points -->
             <h1>Available Access Points</h1>
-            <p>Below you can find secure access points of Foundation512. Each leads to a different section of the system:</p>
+            <p>Click a box to access further classified information:</p>
 
             <div class="container">
-                <div class="box" onclick="location.href='pages/scp-data.html'">
+                <div class="box" data-json="scp-data.json">
                     <h2>SCP-Data.Box</h2>
                     <p>Access classified SCP databases and object files.</p>
                 </div>
-                <div class="box" onclick="location.href='pages/chatroom.html'">
+                <div class="box" data-json="chatroom.json">
                     <h2>Official Chatroom</h2>
                     <p>Enter the secure communication hub for Foundation members.</p>
                 </div>
-                <div class="box" onclick="location.href='pages/incidents.html'">
+                <div class="box" data-json="incidents.json">
                     <h2>Incident Reports</h2>
                     <p>Review records of breaches, anomalies, and emergencies.</p>
                 </div>
-                <div class="box" onclick="location.href='pages/research.html'">
+                <div class="box" data-json="research.json">
                     <h2>Research Hub</h2>
                     <p>Explore archives of experiments, projects, and analysis.</p>
                 </div>
-                <div class="box" onclick="location.href='pages/training.html'">
+                <div class="box" data-json="training.json">
                     <h2>Training Protocols</h2>
                     <p>Guidelines and materials for Foundation training.</p>
                 </div>
             </div>
         </section>
+
+        <!-- Dynamic JSON Content -->
+        <section id="json-content" class="page">
+            <h1 id="json-title"></h1>
+            <p id="json-text"></p>
+            <button onclick="goBack()">← Back</button>
+        </section>
+
     </main>
 
     <script src="script.js"></script>
