@@ -1,16 +1,4 @@
 {
   "title": "SCP Data Archive",
-  "content": "
-    <div style='color:#ddd; font-family:monospace; line-height:1.6;'>
-      <h1 style='color:#e74c3c; text-transform:uppercase;'>SCP Data Archive</h1>
-      <img src='assets/data-terminal.jpg' alt='SCP Data Terminal' style='width:100%; border-radius:8px; margin:15px 0;'>
-      <h2 style='color:#3498db;'>Purpose</h2>
-      <p>The <span style='color:#e67e22;'>SCP Data Archive</span> represents the culmination of decades of systematic observation, acquisition, and codification. It is a labyrinth of interlinked records—each one a piece of a puzzle that humanity may never fully solve.</p>
-      <h2 style='color:#2ecc71;'>Structure</h2>
-      <p>Files are fragmented, cross-linked, and intentionally mislabeled in order to deter infiltration attempts. Only through <strong>hierarchical clearance protocols</strong> can the true structure be revealed. Data is never stored linearly, ensuring unauthorized access yields only noise and contradictions.</p>
-      <h2 style='color:#9b59b6;'>Psychological Impact</h2>
-      <p>Those who enter the Archive must be prepared for <span style='color:#c0392b;'>cognitive dissonance</span>, existential dread, and destabilization of prior worldviews. To confront the Archive is to confront the vastness of the anomalous.</p>
-      <img src='assets/archive-room.jpg' alt='Foundation Archive Room' style='width:100%; border-radius:8px; margin:15px 0;'>
-    </div>
-  "
+  "content": "<div style=\"color:#ddd; font-family:monospace; line-height:1.6;\"><h1 style=\"color:#e74c3c; text-transform:uppercase;\">SCP Data Archive</h1><img src=\"assets/data-terminal.jpg\" alt=\"SCP Data Terminal\" style=\"width:100%; border-radius:8px; margin:15px 0;\"><h2 style=\"color:#3498db;\">Purpose</h2><p>The <span style=\"color:#e67e22;\">SCP Data Archive</span> represents the culmination of decades of systematic observation, acquisition, and codification. It is a labyrinth of interlinked records—each one a piece of a puzzle that humanity may never fully solve.</p><h2 style=\"color:#2ecc71;\">Structure</h2><p>Files are fragmented, cross-linked, and intentionally mislabeled in order to deter infiltration attempts. Only through <strong>hierarchical clearance protocols</strong> can the true structure be revealed. Data is never stored linearly, ensuring unauthorized access yields only noise and contradictions.</p><h2 style=\"color:#9b59b6;\">Psychological Impact</h2><p>Those who enter the Archive must be prepared for <span style=\"color:#c0392b;\">cognitive dissonance</span>, existential dread, and destabilization of prior worldviews. To confront the Archive is to confront the vastness of the anomalous.</p><img src=\"assets/archive-room.jpg\" alt=\"Foundation Archive Room\" style=\"width:100%; border-radius:8px; margin:15px 0;\"></div>"
 }
