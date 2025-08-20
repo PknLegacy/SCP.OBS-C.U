@@ -279,7 +279,7 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
 </head>
 <body>
 
-<!-- SECURE: Loader + Inhalt (einzigartige IDs!) -->
+<!-- SECURE: Loader + Inhalt -->
 <section id="secure" class="page">
   <div id="secure-loader" class="loader" style="display:none;">
     <div class="scan-line"></div>
@@ -304,7 +304,8 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
   const backBtn       = document.getElementById("back-btn");
   const scpBox        = document.getElementById("scp-box");     // die Box auf Home
 
-  // Safety: Abbrechen nach Timeout (z.B. wenn fetch hängt)
+  let hasLoadedSecure = false; // merken, ob schon einmal geladen
+
   function fetchJSONWithTimeout(url, timeoutMs = 10000) {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), timeoutMs);
@@ -316,70 +317,64 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
       });
   }
 
-  // Versucht sinnvollen Text aus beliebigen JSON-Formen zu holen
   function extractMessage(data) {
     if (typeof data === "string") return data;
-
-    // Häufige Felder
     const m = data.message || data.text || data.content || data.body || data.description;
     if (m) return String(m);
-
-    // Title + Text?
     if (data.title && data.text) return `${data.title}\n\n${data.text}`;
-
-    // Fallback: schön formatiert ausgeben
     return JSON.stringify(data, null, 2);
   }
 
   function showPage(pageEl) {
-    // einfache Page-Navigation wie in deinem CSS (.page.active)
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     pageEl.classList.add("active");
   }
 
+  function loadSecureJson() {
+    fetchJSONWithTimeout("secure.json", 12000)
+      .then(data => {
+        secureLoader.style.display = "none";
+        secureContent.style.display = "block";
+        secureText.textContent = extractMessage(data);
+      })
+      .catch(err => {
+        secureLoader.style.display = "none";
+        secureContent.style.display = "block";
+        secureText.textContent = "⚠ Fehler beim Laden von secure.json:\n" + err.message;
+        console.error(err);
+      });
+  }
+
   function openSecure() {
     showPage(securePage);
-
-    // Reset
     secureContent.style.display = "none";
     secureText.textContent = "";
-    secureLoader.style.display = "flex";
 
-    // Lade-„Animation“ + danach JSON laden
-    // Wartezeit hier 5s – kannst du auf 15000 (15s) setzen
-    const waitMs = 5000;
-
-    setTimeout(() => {
-      fetchJSONWithTimeout("secure.json", 12000)
-        .then(data => {
-          secureLoader.style.display = "none";
-          secureContent.style.display = "block";
-          secureText.textContent = extractMessage(data);
-        })
-        .catch(err => {
-          // Egal was passiert: nicht hängen bleiben
-          secureLoader.style.display = "none";
-          secureContent.style.display = "block";
-          secureText.textContent = "⚠ Fehler beim Laden von secure.json:\n" + err.message;
-          console.error(err);
-        });
-    }, waitMs);
+    if (!hasLoadedSecure) {
+      // Ladeanimation nur beim ersten Mal
+      secureLoader.style.display = "flex";
+      setTimeout(() => {
+        loadSecureJson();
+        hasLoadedSecure = true;
+      }, 5000); // 5 Sek Wartezeit beim 1. Mal
+    } else {
+      // Danach sofort Inhalt
+      loadSecureJson();
+    }
   }
 
   function closeSecure() {
-    // zurück zur Home-Section
     showPage(homePage);
-    // UI zurücksetzen
   }
 
-  // Box-Klick -> öffnet Secure
   if (scpBox) {
     scpBox.addEventListener("click", openSecure);
   } else {
     console.warn("Hinweis: #scp-box wurde nicht gefunden – bitte prüfen, ob die Box im DOM existiert.");
   }
 
-  // Back-Button
   backBtn.addEventListener("click", closeSecure);
 })();
 </script>
+</body>
+</html>
