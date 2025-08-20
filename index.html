@@ -256,7 +256,8 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Fullscreen Example</title>
+<title>Foundation Security Terminal</title>
+<link rel="stylesheet" href="style.css">
 <style>
   html, body {
     height: 100%;
@@ -268,8 +269,8 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
     -ms-user-select: none;
   }
   body {
-    -webkit-touch-callout: none; /* iOS: lange Touchs verhindern */
-    -webkit-user-drag: none;     /* Dragging verhindern */
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -278,8 +279,35 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
 </head>
 <body>
 
+<!-- Home -->
+<section id="home" class="page active">
+    <h1>Welcome to Foundation Security Terminal</h1>
+    <p>Access classified SCP documentation. Unauthorized access will be logged.</p>
+    <img src="assets/home.jpg" alt="SCP Home" class="home-img">
+
+    <div class="container">
+        <div class="box" id="open-secure">
+            <h2>Secure Access</h2>
+            <p>Open classified secure terminal...</p>
+        </div>
+    </div>
+</section>
+
+<!-- Secure Page -->
+<section id="secure" class="page">
+    <div id="loader" class="loader" style="display:none;">
+        <div class="scan-line"></div>
+        <p style="margin-top:20px; font-family:monospace; color:red;">Loading SCP Security Update...</p>
+    </div>
+    <div id="secure-content" style="display:none; padding:20px;">
+        <h2 style="color:red;">Secure Access Granted</h2>
+        <div id="secure-text" style="margin-top:20px; white-space:pre-line;"></div>
+        <button id="back-btn" style="margin-top:20px; padding:10px 20px; background:#e74c3c; border:none; color:white; border-radius:10px; cursor:pointer;">Back</button>
+    </div>
+</section>
+
 <script>
-  // Funktion, um Vollbild zu aktivieren
+  // === Vollbild & Schutz ===
   function goFullscreen() {
     let elem = document.documentElement;
     if (elem.requestFullscreen) {
@@ -290,21 +318,55 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
       elem.msRequestFullscreen();
     }
   }
-
   // Nach 3 Sekunden Vollbild
   setTimeout(goFullscreen, 3000);
-
   // Bei Klick Vollbild
   document.addEventListener('click', goFullscreen);
-
   // Rechtsklick blockieren
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
-
-  // Textauswahl & Dragging extra blockieren
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  // Textauswahl & Dragging blockieren
   document.addEventListener('selectstart', e => e.preventDefault());
   document.addEventListener('dragstart', e => e.preventDefault());
+
+  // === Secure-Page Logik ===
+  const homePage = document.getElementById("home");
+  const securePage = document.getElementById("secure");
+  const loader = document.getElementById("loader");
+  const secureContent = document.getElementById("secure-content");
+  const secureText = document.getElementById("secure-text");
+  const backBtn = document.getElementById("back-btn");
+
+  document.getElementById("open-secure").addEventListener("click", () => {
+      homePage.classList.remove("active");
+      securePage.classList.add("active");
+      loader.style.display = "flex";
+      secureContent.style.display = "none";
+
+      setTimeout(() => {
+          fetch("secure.json")
+              .then(res => {
+                  if (!res.ok) throw new Error("secure.json not found");
+                  return res.json();
+              })
+              .then(data => {
+                  loader.style.display = "none";
+                  secureContent.style.display = "block";
+                  secureText.textContent = data.message || "No secure data found.";
+              })
+              .catch(err => {
+                  loader.style.display = "none";
+                  secureContent.style.display = "block";
+                  secureText.textContent = "Error loading secure file: " + err.message;
+              });
+      }, 15000);
+  });
+
+  backBtn.addEventListener("click", () => {
+      securePage.classList.remove("active");
+      homePage.classList.add("active");
+      loader.style.display = "none";
+      secureContent.style.display = "none";
+  });
 </script>
 
 </body>
