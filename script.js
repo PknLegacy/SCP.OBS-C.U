@@ -36,28 +36,3 @@ document.querySelectorAll('.box').forEach(box => {
             });
     });
 });
-
-// Back Button
-function goBack() {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('about').classList.add('active');
-}
-// SCP Files aus JSON laden
-document.addEventListener("DOMContentLoaded", () => {
-  const scpList = document.getElementById("scp-list");
-
-  fetch("json/data.json")
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(scp => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <strong>${scp.id}:</strong> ${scp.title}<br>
-          <em>${scp.description}</em><br>
-          <a href="${scp.link}" style="color: red;">[Open File]</a>
-        `;
-        scpList.appendChild(li);
-      });
-    })
-    .catch(error => console.error("Error loading SCP data:", error));
-});
