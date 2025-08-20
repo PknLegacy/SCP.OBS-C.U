@@ -293,37 +293,14 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
 </section>
 
 <script>
-  // === Vollbild & Schutz ===
-  function goFullscreen() {
-    let elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    }
-  }
-  // Nach 3 Sekunden Vollbild
-  setTimeout(goFullscreen, 3000);
-  // Bei Klick Vollbild
-  document.addEventListener('click', goFullscreen);
-  // Rechtsklick blockieren
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  // Textauswahl & Dragging blockieren
-  document.addEventListener('selectstart', e => e.preventDefault());
-  document.addEventListener('dragstart', e => e.preventDefault());
-
-  // === Secure-Page Logik ===
-  const homePage = document.getElementById("home");
   const securePage = document.getElementById("secure");
   const loader = document.getElementById("loader");
   const secureContent = document.getElementById("secure-content");
   const secureText = document.getElementById("secure-text");
   const backBtn = document.getElementById("back-btn");
 
-  document.getElementById("open-secure").addEventListener("click", () => {
-      homePage.classList.remove("active");
+  // Öffne Secure-Seite (ruf das aus deinem Menü/Button auf!)
+  function openSecure() {
       securePage.classList.add("active");
       loader.style.display = "flex";
       secureContent.style.display = "none";
@@ -331,7 +308,7 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
       setTimeout(() => {
           fetch("secure.json")
               .then(res => {
-                  if (!res.ok) throw new Error("secure.json not found");
+                  if (!res.ok) throw new Error("secure.json not found (HTTP " + res.status + ")");
                   return res.json();
               })
               .then(data => {
@@ -342,18 +319,15 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
               .catch(err => {
                   loader.style.display = "none";
                   secureContent.style.display = "block";
-                  secureText.textContent = "Error loading secure file: " + err.message;
+                  secureText.textContent = "⚠ Error loading secure file:\n" + err.message;
               });
-      }, 15000);
-  });
+      }, 5000);
+  }
 
+  // Zurück-Button
   backBtn.addEventListener("click", () => {
       securePage.classList.remove("active");
-      homePage.classList.add("active");
       loader.style.display = "none";
       secureContent.style.display = "none";
   });
 </script>
-
-</body>
-</html>
