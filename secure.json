@@ -1,24 +1,3 @@
 {
-  "title": "Foundation512 Secure Data",
-  "description": "This file contains confidential SCP personnel and containment cell information.",
-  "scp_entities": [
-    {
-      "name": "SCP-512-01",
-      "birth_year": 1982,
-      "cell_image": "assets/scp-cell1.jpg",
-      "notes": "High-risk containment. Monitored 24/7."
-    },
-    {
-      "name": "SCP-512-02",
-      "birth_year": 1990,
-      "cell_image": "assets/scp-cell2.jpg",
-      "notes": "Anomalous abilities. Requires isolation protocols."
-    },
-    {
-      "name": "SCP-512-03",
-      "birth_year": 1975,
-      "cell_image": "assets/scp-cell3.jpg",
-      "notes": "Historical specimen. Observation only."
-    }
-  ]
+  "message": "Authorization Level: O5 Clearance\nSCP Security Update Applied.\nAll activity is logged."
 }
