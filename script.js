@@ -7,7 +7,7 @@ document.querySelectorAll('.navbar li').forEach(item => {
     });
 });
 
-// Loader
+// Loader beim Start
 window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
@@ -36,11 +36,13 @@ document.querySelectorAll('.box').forEach(box => {
             });
     });
 });
-// Back Button
+
+// Back Button → immer zurück zu "home"
 function goBack() {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('about').classList.add('active');
+    document.getElementById('home').classList.add('active');
 }
+
 // SCP Files aus JSON laden
 document.addEventListener("DOMContentLoaded", () => {
   const scpList = document.getElementById("scp-list");
