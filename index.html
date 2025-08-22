@@ -257,86 +257,122 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Foundation Security Terminal</title>
-<link rel="stylesheet" href="style.css">
-<style>
-  html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    user-select: none; 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-  body {
-    -webkit-touch-callout: none;
-    -webkit-user-drag: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
+  <meta charset="UTF-8">
+  <title>Foundation Security Terminal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+    body {
+      background: black;
+      color: white;
+      font-family: monospace;
+    }
 
-  /* ===== Ladeanimation (Terminal-Style) ===== */
-  .loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background: black;
-    font-family: monospace;
-    color: #00ff00;
-    font-size: 18px;
-  }
-  .dot {
-    animation: blink 1s infinite;
-  }
-  @keyframes blink {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-</style>
+    /* Loader */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-family: monospace;
+      color: red;
+    }
+
+    .scan-line {
+      width: 80%;
+      height: 2px;
+      background: red;
+      animation: scan 2s linear infinite;
+    }
+
+    @keyframes scan {
+      0%   { transform: translateY(-200px); opacity: 0; }
+      50%  { transform: translateY(0);       opacity: 1; }
+      100% { transform: translateY(200px);  opacity: 0; }
+    }
+
+    /* Pages */
+    .page {
+      display: none;
+      padding: 20px;
+    }
+    .page.active {
+      display: block;
+    }
+
+    /* Box */
+    .box {
+      border: 1px solid red;
+      padding: 20px;
+      margin: 10px;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #e74c3c;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<!-- SECURE -->
-<section id="secure" class="page">
-  <!-- Neue Ladeanimation -->
-  <div id="secure-loader" class="loader" style="display:none;">
-    <p>Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
-  </div>
+<!-- Loader (ohne Bilder) -->
+<div id="loader" class="loader">
+  <div class="scan-line"></div>
+  <p>Loading SCP Security Update...</p>
+</div>
 
-  <!-- Inhalt -->
-  <div id="secure-content" style="display:none; padding:20px;">
+<!-- Home Page -->
+<section id="home" class="page active">
+  <h1>Foundation Security Terminal</h1>
+  <div id="scp-box" class="box" data-json="secure.json">Open Secure File</div>
+</section>
+
+<!-- Secure Page -->
+<section id="secure" class="page">
+  <div id="secure-content" style="display:none;">
     <h2 style="color:red;">Secure Access Granted</h2>
     <div id="secure-text" style="margin-top:20px; white-space:pre-wrap;"></div>
-    <button id="back-btn" style="margin-top:20px; padding:10px 20px; background:#e74c3c; border:none; color:white; border-radius:10px; cursor:pointer;">Back</button>
+    <button id="back-btn">Back</button>
   </div>
 </section>
 
 <script>
-/* ======= Secure Handling ======= */
-(function () {
+  // Loader ausblenden
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+    }, 2000);
+  });
+
   const homePage      = document.getElementById("home");
   const securePage    = document.getElementById("secure");
-  const secureLoader  = document.getElementById("secure-loader");
   const secureContent = document.getElementById("secure-content");
   const secureText    = document.getElementById("secure-text");
   const backBtn       = document.getElementById("back-btn");
   const scpBox        = document.getElementById("scp-box");
 
-  function fetchJSONWithTimeout(url, timeoutMs = 10000) {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), timeoutMs);
-    return fetch(url, { signal: ctrl.signal })
-      .then(res => {
-        clearTimeout(t);
-        if (!res.ok) throw new Error("HTTP " + res.status + " for " + url);
-        return res.json();
-      });
+  function showPage(pageEl) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    pageEl.classList.add("active");
   }
 
   function extractMessage(data) {
@@ -347,46 +383,28 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
     return JSON.stringify(data, null, 2);
   }
 
-  function showPage(pageEl) {
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    pageEl.classList.add("active");
-  }
-
   function openSecure() {
     showPage(securePage);
-    secureContent.style.display = "none";
-    secureText.textContent = "";
-    secureLoader.style.display = "flex";
-
-    setTimeout(() => {
-      fetchJSONWithTimeout("secure.json", 12000)
-        .then(data => {
-          secureLoader.style.display = "none";
-          secureContent.style.display = "block";
-          secureText.textContent = extractMessage(data);
-        })
-        .catch(err => {
-          secureLoader.style.display = "none";
-          secureContent.style.display = "block";
-          secureText.textContent = "⚠ Fehler beim Laden von secure.json:\n" + err.message;
-          console.error(err);
-        });
-    }, 3000); // 3 Sekunden Ladeanimation
+    secureContent.style.display = "block";
+    fetch("json/secure.json")
+      .then(res => res.json())
+      .then(data => {
+        secureText.textContent = extractMessage(data);
+      })
+      .catch(err => {
+        secureText.textContent = "⚠ Error loading secure.json:\n" + err.message;
+      });
   }
 
   function closeSecure() {
     showPage(homePage);
+    secureContent.style.display = "none";
   }
 
   if (scpBox) {
     scpBox.addEventListener("click", openSecure);
-  } else {
-    console.warn("Hinweis: #scp-box wurde nicht gefunden.");
   }
-
   backBtn.addEventListener("click", closeSecure);
-})();
 </script>
-
 </body>
 </html>
