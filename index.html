@@ -252,3 +252,141 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
     <script src="script.js"></script>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Foundation Security Terminal</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* ===== Ladeanimation (Terminal-Style) ===== */
+  .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: black;
+    font-family: monospace;
+    color: #00ff00;
+    font-size: 18px;
+  }
+  .dot {
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SECURE -->
+<section id="secure" class="page">
+  <!-- Neue Ladeanimation -->
+  <div id="secure-loader" class="loader" style="display:none;">
+    <p>Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
+  </div>
+
+  <!-- Inhalt -->
+  <div id="secure-content" style="display:none; padding:20px;">
+    <h2 style="color:red;">Secure Access Granted</h2>
+    <div id="secure-text" style="margin-top:20px; white-space:pre-wrap;"></div>
+    <button id="back-btn" style="margin-top:20px; padding:10px 20px; background:#e74c3c; border:none; color:white; border-radius:10px; cursor:pointer;">Back</button>
+  </div>
+</section>
+
+<script>
+/* ======= Secure Handling ======= */
+(function () {
+  const homePage      = document.getElementById("home");
+  const securePage    = document.getElementById("secure");
+  const secureLoader  = document.getElementById("secure-loader");
+  const secureContent = document.getElementById("secure-content");
+  const secureText    = document.getElementById("secure-text");
+  const backBtn       = document.getElementById("back-btn");
+  const scpBox        = document.getElementById("scp-box");
+
+  function fetchJSONWithTimeout(url, timeoutMs = 10000) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeoutMs);
+    return fetch(url, { signal: ctrl.signal })
+      .then(res => {
+        clearTimeout(t);
+        if (!res.ok) throw new Error("HTTP " + res.status + " for " + url);
+        return res.json();
+      });
+  }
+
+  function extractMessage(data) {
+    if (typeof data === "string") return data;
+    const m = data.message || data.text || data.content || data.body || data.description;
+    if (m) return String(m);
+    if (data.title && data.text) return `${data.title}\n\n${data.text}`;
+    return JSON.stringify(data, null, 2);
+  }
+
+  function showPage(pageEl) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    pageEl.classList.add("active");
+  }
+
+  function openSecure() {
+    showPage(securePage);
+    secureContent.style.display = "none";
+    secureText.textContent = "";
+    secureLoader.style.display = "flex";
+
+    setTimeout(() => {
+      fetchJSONWithTimeout("secure.json", 12000)
+        .then(data => {
+          secureLoader.style.display = "none";
+          secureContent.style.display = "block";
+          secureText.textContent = extractMessage(data);
+        })
+        .catch(err => {
+          secureLoader.style.display = "none";
+          secureContent.style.display = "block";
+          secureText.textContent = "⚠ Fehler beim Laden von secure.json:\n" + err.message;
+          console.error(err);
+        });
+    }, 3000); // 3 Sekunden Ladeanimation
+  }
+
+  function closeSecure() {
+    showPage(homePage);
+  }
+
+  if (scpBox) {
+    scpBox.addEventListener("click", openSecure);
+  } else {
+    console.warn("Hinweis: #scp-box wurde nicht gefunden.");
+  }
+
+  backBtn.addEventListener("click", closeSecure);
+})();
+</script>
+
+</body>
+</html>
