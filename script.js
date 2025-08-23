@@ -62,3 +62,36 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(error => console.error("Error loading SCP data:", error));
 });
+// Rechtsklick deaktivieren
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+
+// Funktion zum Aktivieren des Vollbildmodus
+function activateFullscreen() {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { // Safari
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { // IE11
+    elem.msRequestFullscreen();
+  }
+}
+
+// Nach dem ersten Klick in den Vollbildmodus
+let fullscreenActivated = false;
+document.addEventListener('click', function() {
+  if (!fullscreenActivated) {
+    activateFullscreen();
+    fullscreenActivated = true;
+  }
+});
+
+// Nach 5 Sekunden automatisch in den Vollbildmodus (falls kein Klick)
+setTimeout(function() {
+  if (!fullscreenActivated) {
+    activateFullscreen();
+    fullscreenActivated = true;
+  }
+}, 5000);
