@@ -115,3 +115,13 @@ body {
     font-size: 0.9em;
     color: #cccccc;
 }
+.page {
+    display: none;
+    padding: 20px;
+    max-height: calc(100vh - 60px); /* Platz abziehen für Navbar */
+    overflow-y: auto;              /* nur Inhalte scrollen */
+}
+
+.page.active {
+    display: block;
+}
