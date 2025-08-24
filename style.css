@@ -3,12 +3,44 @@ body {
     font-family: Arial, sans-serif;
     background-color: #0a0a0a;
     color: white;
-
-    /* 👉 Scrollen erlauben */
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* für iOS/Android smooth */
+    -webkit-overflow-scrolling: touch;
 }
 
+/* Loader (Terminal-Style) */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.scan-line {
+    width: 80%;
+    height: 2px;
+    background: #00ff00;
+    margin-bottom: 20px;
+    animation: scan 2s infinite;
+}
+@keyframes scan {
+    0% { transform: translateY(-100px);}
+    50% { transform: translateY(100px);}
+    100% { transform: translateY(-100px);}
+}
+.loader p {
+    color: #00ff00;
+    font-family: monospace;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Navbar & Basics */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -17,64 +49,34 @@ body {
     background-color: #111;
     position: sticky;
     top: 0;
-    z-index: 10; /* bleibt immer sichtbar */
+    z-index: 10;
 }
-
 .logo {
     font-size: 24px;
     font-weight: bold;
     color: red;
 }
-
 .navbar ul {
     list-style: none;
     display: flex;
     gap: 20px;
 }
-
 .navbar li {
     cursor: pointer;
     transition: transform 0.2s, color 0.3s;
 }
-
 .navbar li:hover {
     transform: translateY(-3px);
     color: red;
 }
 
-/* Loader */
-.loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.scan-line {
-    width: 80%;
-    height: 2px;
-    background: red;
-    animation: scan 2s infinite;
-}
-
-@keyframes scan {
-    0% { transform: translateY(-100px); }
-    50% { transform: translateY(100px); }
-    100% { transform: translateY(-100px); }
-}
-
+/* Seiten */
 .page {
     display: none;
     padding: 20px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
 }
-
 .page.active {
     display: block;
 }
@@ -84,6 +86,7 @@ body {
     margin-top: 20px;
 }
 
+/* Container für alle Boxen */
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -91,37 +94,205 @@ body {
     margin-top: 30px;
 }
 
+/* Boxen */
 .box {
     background: #1a1a1a;
     border: 2px solid #e74c3c;
     padding: 20px;
     border-radius: 15px;
     cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 120px;
+    justify-content: flex-start;
 }
-
 .box:hover {
     transform: scale(1.05);
     background: #2c2c2c;
     box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
 }
-
 .box h2 {
     color: #e74c3c;
     margin-bottom: 10px;
 }
-
 .box p {
     font-size: 0.9em;
     color: #cccccc;
 }
-.page {
-    display: none;
-    padding: 20px;
-    max-height: calc(100vh - 60px); /* Platz abziehen für Navbar */
-    overflow-y: auto;              /* nur Inhalte scrollen */
+.box.special {
+    border: 2px solid #3498db;
+    background: #151c22;
+}
+.box.special h2 {
+    color: #3498db;
+}
+.box.special:hover {
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
 }
 
-.page.active {
-    display: block;
+/* Modal für Spezialboxen (wie aus vorherigem Vorschlag) */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(10,17,30,0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    flex-direction: column;
+    color: #fff;
+    font-family: monospace;
+    animation: modalIn 0.3s;
+}
+@keyframes modalIn { from { opacity:0; } to { opacity:1; } }
+.modal-content {
+    background: #1a1a1a;
+    padding: 30px 30px 20px 30px;
+    border-radius: 18px;
+    box-shadow: 0 0 32px #1a1a1a99;
+    min-width: 300px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+.clocks, .users {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 12px;
+}
+.clock, .user {
+    background: #222;
+    padding: 14px;
+    border-radius: 8px;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.animation-bar {
+    width: 100px; height: 8px; background: #444;
+    margin: 16px auto;
+    position: relative; overflow: hidden;
+}
+.animation-bar::after {
+    content: '';
+    width: 20px; height: 8px; background: #0af;
+    position: absolute; left: 0; top: 0;
+    animation: bar-move 1.2s infinite linear;
+}
+@keyframes bar-move {
+    0% { left: 0; }
+    100% { left: 80px; }
+}
+.loader-modal {
+    border: 5px solid #eee;
+    border-top: 5px solid #0af;
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    margin: 16px auto;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+.modal button {
+    margin-top: 24px;
+    padding: 8px 24px;
+    background: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
+.worlddata-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.wd-entry {
+  background: #181818;
+  border: 2px solid #3498db;
+  border-radius: 12px;
+  padding: 18px;
+  color: #eee;
+  box-shadow: 0 2px 12px #0003;
+  overflow: hidden;
+}
+.wd-entry h3 {
+  margin: 0 0 8px 0;
+  color: #3498db;
+  font-size: 1.07em;
+}
+.wd-entry p {
+  font-size: 0.92em;
+  margin-bottom: 10px;
+}
+.wd-entry img,
+.wd-entry video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  background: #222;
+  display: block;
+}
+.wd-entry a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #e74c3c;
+  text-decoration: underline;
+  font-size: 0.95em;
+}
+/* ...Dein bisheriges CSS... */
+
+/* Worlddata Grid für den Weltdaten-Speicher */
+.worlddata-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+.wd-entry {
+  background: #181818;
+  border: 2px solid #3498db;
+  border-radius: 12px;
+  padding: 18px;
+  color: #eee;
+  box-shadow: 0 2px 12px #0003;
+  overflow: hidden;
+}
+.wd-entry h3 {
+  margin: 0 0 8px 0;
+  color: #3498db;
+  font-size: 1.07em;
+}
+.wd-entry p {
+  font-size: 0.92em;
+  margin-bottom: 10px;
+}
+.wd-entry img,
+.wd-entry video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  background: #222;
+  display: block;
+}
+.wd-entry a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #e74c3c;
+  text-decoration: underline;
+  font-size: 0.95em;
 }
